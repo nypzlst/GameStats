@@ -1,6 +1,7 @@
 ﻿namespace Stats.Loggin
 {
-    public class Authorization
+    public class Authorization 
     {
+        
     }
 }
