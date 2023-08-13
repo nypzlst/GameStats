@@ -1,18 +1,14 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+using Stats.LifeTime;
+using Stats.TimeMiddleware;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/login");
-builder.Services.AddAuthorization();
+var builder = WebApplication.CreateBuilder();
+builder.Services.AddTransient<ITime, DefaultTime>();
+
 var app = builder.Build();
 
 
-app.Map("/", [Authorize] () => $"Hello World!");
+app.UseMiddleware<TimeMessageMiddleware>();
 
 app.Run();
 
-//app.MapGet("/", () => "Hello World!");
-
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/login");
 
