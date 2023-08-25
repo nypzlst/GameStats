@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Stat.DataBase;
 using Stat.Models;
+using System.Security.Claims;
 
 namespace Stat.Controllers
 {
@@ -18,7 +21,7 @@ namespace Stat.Controllers
         }
 
 
-        public void ToAddForDb(string name, string email, string password)
+        public async Task ToAddForDb(string name, string email, string password)
         {
             using(ApplicationContext db =  new ApplicationContext())
             {
@@ -29,6 +32,10 @@ namespace Stat.Controllers
                     {
                         db.Users.Add(NewUser);
                         db.SaveChanges();
+                        var claims = new List<Claim> { new Claim(ClaimTypes.NameIdentifier, email) };
+                        ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                        HttpContext.Response.Redirect("/");
                     }
                     else
                     {
