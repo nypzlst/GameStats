@@ -8,12 +8,13 @@ namespace TestDb
     public class Tests
     {
         private string connectionString;
+        
         [SetUp]
         public void Setup()
         {
             connectionString = "Server=localhost;User=root;Password=zxcDaitona500@;Database=StatsUser.db";
         }
-
+        #region TestConnectionToDb
         [Test]
         public void TestConnectionToDB()
         {
@@ -31,6 +32,8 @@ namespace TestDb
                 finally { con.Close(); }
             }
         }
+        #endregion
+        #region TestCheckToAddUserForDb
         [Test]
         public void TestToTryUserForDb()
         {
@@ -57,5 +60,26 @@ namespace TestDb
                 }
             }
         }
+        #endregion
+        #region CheckUserForLogin Test
+        [Test]
+        public void CheckUserForLogin()
+        {
+            using(ApplicationContext db =new ApplicationContext())
+            {
+                var people = new User() { Id = Guid.NewGuid().ToString(), Name = "Tomas", Email = "qweqwq@gmail.com", Password = "sdadasawsewq12" };
+                var FounderUser = db.Users.FirstOrDefault(x => x.Email == people.Email);
+
+                if (FounderUser != null && CryptoHelper.Crypto.VerifyHashedPassword(FounderUser.Password, people.Password))
+                {
+                    Assert.Pass();
+                }
+                else
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+        #endregion
     }
 }

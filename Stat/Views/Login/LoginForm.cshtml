@@ -1,0 +1,32 @@
+﻿@page
+
+@{
+}
+
+<!doctype>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Login</title>
+    </head>
+    <body>
+        <form action="/Login/LoginForm" method="post">
+            <div>
+                <p>
+                    <label> Email</label>
+                    <input type="email" name="emailLog"/>
+                </p>
+                <p>
+                    <label> Password</label>
+                    <input type="password" name="passwordLog"/>
+                </p>
+                <p>
+                    <input type="submit" value="Login">
+                </p>
+            </div>
+        </form>
+        <div>
+            <p>Dont have account?<a href="/Registration/RegistrationForm">Register this</a></p>
+        </div>
+    </body>
+</html>
