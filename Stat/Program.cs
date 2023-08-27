@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using MySqlConnector;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath= "/Registration/RegistrationForm");
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath= "/Login/LoginForm");
 builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
 
@@ -11,7 +11,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Registration}/{action=RegistrationForm}");
+    pattern: "{controller=Login}/{action=LoginForm}");
 app.Map("/", [Authorize] () => $"Welcome to main page");
 
 app.Run();

@@ -9,6 +9,7 @@ namespace Stat.Controllers
 {
     public class RegistrationController : Controller
     {
+        
         [HttpGet]
         public IActionResult RegistrationForm()
         {
