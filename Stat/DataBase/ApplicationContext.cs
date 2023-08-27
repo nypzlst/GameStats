@@ -8,9 +8,10 @@ namespace Stat.DataBase
     {
         public DbSet<User> Users { get; set; } = null!;
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySql("Server=localhost;User=root;Password=zxcDaitona500@;Database=StatsUser.db;",new MySqlServerVersion(new Version(8,1,0)));
-        }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) :base(options){ }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseMySql("Server=localhost;User=root;Password=zxcDaitona500@;Database=StatsUser.db;",new MySqlServerVersion(new Version(8,1,0)));
+        //}
     }
 }
